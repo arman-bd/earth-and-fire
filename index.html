@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+
+    <title>Earth &amp; Fire - Index</title>
+
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="vendor/uikit/style.css"/>
+    <script type="text/javascript" src="vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="dist/js/cookie.js"></script>
+    <script src="dist/js/moment.min.js"></script>
+    <link href='//fonts.googleapis.com/css?family=Bitter:400,400italic,700' rel='stylesheet' type='text/css'>
+
+<script>
+var loc = window.location.href+'';
+if (loc.indexOf('http://')==0){
+    window.location.href = loc.replace('http://','https://');
+}
+</script>
+<script>
+$(document).ready(function(){
+    $.ajax({
+        url : '_serv/feed.php?r='+Math.random(),
+        type : 'GET',
+        success : function(data){
+            var dataObj = $.parseJSON(data);
+            dataObj.forEach(function(element) {
+
+                if(element.image != ""){
+                    image_data = '<p><img src="' + element.image + '" style="width: 350px;"></p>';
+                }
+                
+                new_content = '<div class="nav-btm-menu-btm-grid"><div class="nav-btm-menu-btm-grid-left"><img src="' + element.avatar + '" class="img-responsive" /></div>';
+				new_content = new_content + '<div class="nav-btm-menu-btm-grid-left1"><h3>' + element.location + '</h3><p>Reported by: ' + element.user_name + '</p>' + image_data + '</div>';
+				new_content = new_content + '<div class="nav-btm-menu-btm-grid-right"><h4>' + moment(element.time, "X").fromNow() + '</h4></div>';
+				new_content = new_content + '<div class="clearfix"></div></div>';
+				
+				$("#style-2").append(new_content);
+
+            });
+        }
+    });
+});
+
+</script>
+
+</head>
+<body>
+    <div class="container">
+				<img src="dist/img/header-logo.png" width="100%">
+                <hr>
+                <h3><a href="forecast.html">Forecast</a> || <a href="report.html">Report Incident</a></h3>
+                <h4>Reported Incident</h4>
+				<div class="navigation-bottom-menu-bottom" id="style-2"></div>
+		</div>
+
+    </div>
+</body>
+</html>

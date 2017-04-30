@@ -1,0 +1,81 @@
+<html>
+<head>
+        
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="dist/css/forecast.gmap.css?v0.0.1"/>
+
+    <script type="text/javascript" src="vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <title>Earth &amp; Fire - Fire Incident Forecast System</title>
+
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+<script>
+var loc = window.location.href+'';
+if (loc.indexOf('http://')==0){
+    window.location.href = loc.replace('http://','https://');
+}
+</script>
+  </head>
+  <body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="page-header">
+                    <img src="dist/img/header-logo.png" width="100%">
+                    <hr>
+                    <h4>Fire Incident Forecast System</h4>
+                </div>
+				
+				<div class="pac-card" id="pac-card">
+				  <div>
+					<div id="title" style="margin-bottom: 12px;">&nbsp;</div>
+					<div id="type-selector" class="pac-controls" style="display: none;">
+					  <input type="radio" name="type" id="changetype-all" checked="checked">
+					  <label for="changetype-all">All</label>
+
+					  <input type="radio" name="type" id="changetype-establishment">
+					  <label for="changetype-establishment">Establishments</label>
+
+					  <input type="radio" name="type" id="changetype-address">
+					  <label for="changetype-address">Addresses</label>
+
+					  <input type="radio" name="type" id="changetype-geocode">
+					  <label for="changetype-geocode">Geocodes</label>
+					</div>
+					<div id="strict-bounds-selector" class="pac-controls" style="display: none;">
+					  <input type="checkbox" id="use-strict-bounds" value="">
+					  <label for="use-strict-bounds">Strict Bounds</label>
+					</div>
+				  </div>
+				  <div id="pac-container">
+					<input id="pac-input" type="text"
+						placeholder="Enter a location">
+				  </div>
+				  <div id="title">&nbsp;</div>
+				</div>
+
+				<div id="map"></div>
+				<div id="infowindow-content">
+				  <img src="" width="16" height="16" id="place-icon">
+				  <span id="place-name"  class="title"></span><br>
+				  <span id="place-address"></span>
+				</div>
+				
+				<center><div id="result"></div></center>
+				
+            </div>
+        </div>
+    </div>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhbGMUsYtBhWlHatc6N8fNejCwIGud8c&libraries=places&callback=initMap&language=en" async defer></script>
+    <script type="text/javascript" src="dist/js/forecast.map.js"></script>
+    
+<div style="display: none;">
+    <input type="text" id="lat">
+    <input type="text" id="long">
+</div>
+
+</body>
+</html>

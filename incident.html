@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Use correct character set. -->
+  <meta charset="utf-8">
+  <!-- Tell IE to use the latest, best version. -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- Make the application on mobile take up the full browser screen and disable user scaling. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+  <title>Hello World!</title>
+  <script src="build/Cesium/Cesium.js"></script>
+  <style>
+      @import url(../Build/Cesium/Widgets/widgets.css);
+      html, body, #cesiumContainer {
+          width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+      }
+  </style>
+</head>
+<body>
+  <div id="cesiumContainer"></div>
+  <script>
+    Cesium.BingMapsApi.defaultKey = "AoQsb8MVPA3C8LJTe24XSX3Zg2z6275SE7H7s3svqBVFbJw-I9FyI-5pzs1pXZEa";
+    Cesium.MapboxApi.defaultAccessToken = "pk.eyJ1IjoibnNzc2F5b20iLCJhIjoiY2oxaHM0ejkyMDAxbTJxdXh0dTVpbWxidyJ9.UsWqwetVHkj2mRBS-FYAEQ";
+    var viewer = new Cesium.Viewer('cesiumContainer');
+    /*
+    function addDot(viewer, lat, lon){
+      viewer.entities.add({
+      position: Cesium.Cartesian3.fromDegrees(lat, lon),
+      name : 'Red ellipse on surface with outline',
+        ellipse : {
+            semiMinorAxis : 10000.0,
+            semiMajorAxis : 10000.0,
+            material : Cesium.Color.BLUE.withAlpha(0.5),
+            outline : true,
+            outlineColor : Cesium.Color.BLUE
+        }
+      });
+    }
+    */
+
+function addDot(viewer, lat, lon, s_name){
+  var dotObj = viewer.entities.add({
+    name : s_name,
+    position : Cesium.Cartesian3.fromDegrees(lat, lon),
+    point : {
+      pixelSize : 3,
+    color : Cesium.Color.RED,
+    outlineColor : Cesium.Color.WHITE,
+    outlineWidth : 0
+  }});
+
+  return dotObj;
+}
+
+viewer.zoomTo(viewer.entities);
+    
+  </script>
+
+<script src="dist/js/"></script>
+</body>
+</html>

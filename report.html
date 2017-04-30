@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Earth &amp; Fire - Report Incident</title>
+
+    <link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.css"/>
+    <link rel="stylesheet" href="dist/css/bootstrapValidator.min.css"/>
+    <link rel="stylesheet" href="dist/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="stylesheet" href="dist/css/gmap.css"/>
+
+    <script type="text/javascript" src="vendor/jquery/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="dist/js/moment.min.js"></script>
+    <script type="text/javascript" src="dist/js/bootstrapValidator.min.js"></script>
+    <script type="text/javascript" src="dist/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" src="dist/js/cookie.js"></script>
+    <script type="text/javascript" src="dist/js/report.maps.head.js"></script>
+    <script type="text/javascript" src="dist/js/report.login.js"></script>
+
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    
+<script>
+var loc = window.location.href+'';
+if (loc.indexOf('http://')==0){
+    window.location.href = loc.replace('http://','https://');
+}
+</script>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2">
+                <div class="page-header">
+                    <img src="dist/img/header-logo.png" width="100%">
+                    <hr>
+                    <h3>Report Fire Incident</h3>
+                </div>
+
+                <div class="pac-card" id="pac-card">
+                <div>
+                    <div id="title" style="margin-bottom: 12px;">&nbsp;</div>
+                    <div id="type-selector" class="pac-controls" style="display: none;">
+				        <input type="radio" name="type" id="changetype-all" checked="checked">
+				        <label for="changetype-all">All</label>
+
+				        <input type="radio" name="type" id="changetype-establishment">
+				        <label for="changetype-establishment">Establishments</label>
+
+				        <input type="radio" name="type" id="changetype-address">
+				        <label for="changetype-address">Addresses</label>
+
+				        <input type="radio" name="type" id="changetype-geocode">
+				        <label for="changetype-geocode">Geocodes</label>
+				        </div>
+				        <div id="strict-bounds-selector" class="pac-controls" style="display: none;">
+				        <input type="checkbox" id="use-strict-bounds" value="">
+				        <label for="use-strict-bounds">Strict Bounds</label>
+                    </div>
+                </div>
+                <div id="pac-container">
+                    <input id="pac-input" type="text"
+                        placeholder="Enter a location">
+                </div>
+                <div id="title">&nbsp;</div>
+                </div>
+
+                <div id="map"></div>
+                    <div id="infowindow-content">
+                    <img src="" width="16" height="16" id="place-icon">
+                    <span id="place-name"  class="title"></span><br>
+                    <span id="place-address"></span>
+                </div>
+
+                <br>
+
+                <form id="ReportForm" name="ReportForm" method="post" class="form-horizontal" action="service.php">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Location</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="text" name="location" id="location" />
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Fire Type</label>
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <select class="form-control" id="fire_type" name="fire_type" style="width: 94%; margin-left: 3%;">
+                                    <option>Household Fire</option>
+                                    <option>Infrastructure Fire</option>
+                                    <option>Chemical Fire</option>
+                                    <option>Wild Fire</option>
+                                    <option>Explosion</option>
+                                    <option>Intentional Fire</option>
+                                    <option>Not In This List</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Image</label>
+                        <div class="col-sm-5">
+                            <input type="file" class="form-control" name="image_file" id="image_file" />
+                            <span class="help-block">Choose a photo.</span>
+                        </div>
+                    </div>
+
+                    <!-- datetime picker -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">DateTime</label>
+                        <div class="col-sm-5">
+                            <div class="input-group date" id="datetimePicker">
+                                <input type="text" class="form-control" name="datetimePicker" id="dateField" />
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Verify</label>
+                        <div class="col-sm-5">
+                            <div class="g-recaptcha" data-sitekey="6Lc7_h4UAAAAADy3vAiVTA1pUdcZ-JYYiAbFeDyp"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-sm-10 col-sm-offset-2">
+                            <button type="submit" class="btn btn-primary" onclick="SubmitForm();return false;">Submit</button>
+                        </div>
+                    </div>
+                    
+
+                    <div style="display: none;">
+                        <input type="text" id="lat" name="lat">
+                        <input type="text" id="lon" name="lon">
+                        <input type="text" id="ukey" name="ukey">
+                        <input type="text" id="token" name="token">
+                    </div>
+                </form>
+                <div id="final_result" style="display: none;">
+                    <h2>Successfully Reported!</h2>
+                    <h3>Please Stay Safe...</h3>
+                    <h4 id="emergency_support" style="display: none;">Call 999 for Emergency support!</h4>
+                    <br><br>
+                    <a href="index.html">
+                        <button class="btn btn-primary">Go Back</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="dist/js/report.form.validator.js"></script>
+    <script type="text/javascript" src="dist/js/report.maps.js"></script>
+    <script type="text/javascript" src="dist/js/report.form.submit.js"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNhbGMUsYtBhWlHatc6N8fNejCwIGud8c&libraries=places&callback=initMap&language=en" async defer></script>
+    
+</body>
+</html>
