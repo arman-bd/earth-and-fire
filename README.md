@@ -16,11 +16,11 @@ After locating the appropriate data set, we started the analysis process. We use
 
 In addition, we have incorporated a crowdsourcing component into our application. This feature lets users tell Earth & Fire directly from their device about possible fire hazards. Once the information has been verified, Earth & Fire will also alert other users in the area. Also, there is an Application Program Interface that the government and researchers can use to get information about active fires worldwide.
 
-Used Resources:
-NEO Active Fire Data (8 Days)
-NASA FIRMS Data (Daily)
-Prophet[4]
-Google Maps API
-Cesium JS
+## Used Resources:
+* NEO Active Fire Data (8 Days)
+* NASA FIRMS Data (Daily)
+* Prophet
+* Google Maps API
+* Cesium JS
 
 We had to change some parts of the original plan for the project because we didn't have enough computing power. More processing power is required to make more accurate and specific predictions.
